@@ -48,10 +48,13 @@ var checkDocumentsQuery = function(db, id, callback){
     }
   });
 }
-
+//encoded된 데이터를 받기위해서 middleware를 지정해준다. [Post로 받아온 encoded된 데이터를 읽을 수 있도록 한다.]
 app.use(express.json());
 app.use(express.urlencoded());
 
+
+
+//login page와 register page 여는 루트핸들러 만들기(get형식 사용)
 app.get('/loginpage', function(req, res){
   res. sendFile(path.join(__dirname + '/login.html'));
 });
@@ -59,6 +62,8 @@ app.get('/loginpage', function(req, res){
 app.get('/registerpage', function(req, res){
   res.sendFile(path.join(__dirname + '/register.html'));
 });
+
+
 
 app.post('/login', function(req, res){
   var username = req.body.username;
@@ -84,7 +89,7 @@ app.post('/login', function(req, res){
 });
 
 app.post('/register', function(req, res){
-  var query = req.body;
+  var query = req.body; //post방식에서는 req.query가 아니라 req.body로 받는다.
 
   var idQuery = {};
   idQuery['username'] = query.username;
